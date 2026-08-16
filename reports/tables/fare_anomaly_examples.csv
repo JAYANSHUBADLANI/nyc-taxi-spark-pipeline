@@ -1,0 +1,26 @@
+pickup_date,pickup_zone,dropoff_zone,distance_band,duration_band,trip_distance_miles,trip_duration_minutes,fare_amount,peer_median_fare,peer_group_size,fare_per_mile,fare_robust_z,payment_type
+2019-03-05,TriBeCa/Civic Center,TriBeCa/Civic Center,0-1,0-5,0.49,1.57,800.00,4.50,75296,1632.65,1073.13,2
+2019-06-14,N/A,N/A,0-1,0-5,0.50,0.53,780.00,4.50,64993,1560.00,1046.15,3
+2019-05-23,Upper West Side South,N/A,0-1,5-10,0.01,8.18,495.00,6.00,94985,49500.00,978.00,1
+2019-01-23,Clinton East,Clinton East,0-1,0-5,0.10,0.77,684.00,4.50,216405,6840.00,916.65,1
+2019-02-17,Astoria,Astoria,0-1,10-20,0.01,13.47,545.09,8.00,174,54509.00,724.53,2
+2019-05-21,Woodside,Woodside,1-2,0-5,1.10,1.00,337.00,5.50,528,306.36,663.00,1
+2019-01-29,Union Sq,Midtown South,0-1,0-5,0.10,1.77,450.00,4.50,150787,4500.00,600.98,1
+2019-02-04,West Chelsea/Hudson Yards,West Chelsea/Hudson Yards,0-1,0-5,0.05,0.12,450.00,4.50,59639,9000.00,600.98,1
+2019-02-01,Greenwich Village South,Greenwich Village South,1-2,0-5,1.60,2.33,300.00,5.50,7167,187.50,589.00,2
+2019-04-12,Stuyvesant Heights,Stuyvesant Heights,0-1,5-10,0.85,5.00,300.00,5.50,195,352.94,589.00,2
+2019-05-17,Hudson Sq,Hudson Sq,0-1,0-5,0.05,2.38,385.00,4.50,31199,7700.00,513.30,1
+2019-05-01,Greenwich Village South,Greenwich Village South,0-1,5-10,0.03,5.20,375.00,6.00,60852,12500.00,497.78,2
+2019-02-14,Midtown North,Midtown North,0-1,0-5,0.19,0.30,370.00,4.50,105618,1947.37,493.06,1
+2019-04-13,East Village,East Village,0-1,0-5,0.13,0.37,350.00,4.50,148081,2692.31,466.08,1
+2019-01-25,Clinton East,Clinton East,0-1,0-5,0.70,0.53,350.00,4.50,216405,500.00,466.08,3
+2019-01-19,Clinton East,Clinton East,0-1,0-5,0.40,0.83,350.00,4.50,216405,875.00,466.08,1
+2019-03-31,East Village,East Village,0-1,0-5,0.02,0.13,350.00,4.50,148081,17500.00,466.08,1
+2019-01-22,Sunnyside,Sunnyside,0-1,0-5,0.07,0.85,340.00,4.50,5833,4857.14,452.59,2
+2019-02-17,Central Harlem,Central Harlem,1-2,0-5,1.30,1.08,225.00,5.50,3622,173.08,439.00,1
+2019-06-22,N/A,N/A,0-1,0-5,0.06,0.07,312.00,4.50,64993,5200.00,414.82,2
+2019-03-09,Manhattan Valley,Upper West Side North,0-1,0-5,0.50,4.08,304.50,4.50,80156,609.00,404.70,3
+2019-05-15,West Village,West Village,0-1,0-5,0.10,0.17,300.00,4.50,109727,3000.00,398.63,1
+2019-06-14,Clinton East,Clinton East,0-1,0-5,0.07,0.22,300.00,4.50,216405,4285.71,398.63,1
+2019-05-13,Sunnyside,N/A,0-1,0-5,0.02,0.15,300.00,4.50,5833,15000.00,398.63,1
+2019-06-22,Hudson Sq,Hudson Sq,0-1,0-5,0.06,0.53,300.00,4.50,31199,5000.00,398.63,2

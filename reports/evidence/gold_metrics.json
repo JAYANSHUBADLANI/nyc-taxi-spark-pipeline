@@ -1,0 +1,57 @@
+{
+  "stage": "gold",
+  "zone_dimension_rows": 265,
+  "join_plans": {
+    "broadcast": {
+      "uses_broadcast_hash_join": true,
+      "shuffle_exchanges": 0,
+      "broadcast_exchanges": 1,
+      "sorts": 0
+    },
+    "sort_merge": {
+      "uses_sort_merge_join": true,
+      "shuffle_exchanges": 2,
+      "broadcast_exchanges": 0,
+      "sorts": 2
+    }
+  },
+  "gold_plan": {
+    "shuffle_exchanges": 1,
+    "broadcast_exchanges": 2,
+    "window_operators": 2,
+    "sorts": 1
+  },
+  "gold_trip_rows": 44227382,
+  "trips_with_unmatched_pickup_zone": 0,
+  "layout": {
+    "partitioned": {
+      "path": "data/gold/trips",
+      "exists": true,
+      "data_file_count": 181,
+      "partition_directory_count": 181,
+      "total_bytes": 1370855377,
+      "total_mb": 1307.3,
+      "avg_file_mb": 7.22,
+      "largest_file_mb": 8.53,
+      "smallest_file_mb": 4.63
+    },
+    "unpartitioned_baseline": {
+      "path": "data/gold/trips_unpartitioned",
+      "exists": true,
+      "data_file_count": 39,
+      "partition_directory_count": 1,
+      "total_bytes": 1572641785,
+      "total_mb": 1499.8,
+      "avg_file_mb": 38.46,
+      "largest_file_mb": 49.33,
+      "smallest_file_mb": 1.71
+    }
+  },
+  "zone_hour_rows": 597524,
+  "timings_seconds": {
+    "gold: write partitioned trips": 323.2,
+    "gold: write unpartitioned baseline": 113.4,
+    "gold: build zone hour demand": 18.3,
+    "gold: measure output": 0.5
+  }
+}

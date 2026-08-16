@@ -1,0 +1,18 @@
+{
+  "STAGE analytics": {
+    "recorded_at": "2026-08-15T12:26:11",
+    "seconds": 66.0
+  },
+  "STAGE bronze": {
+    "recorded_at": "2026-08-15T12:26:11",
+    "seconds": 165.0
+  },
+  "STAGE gold": {
+    "recorded_at": "2026-08-15T12:26:11",
+    "seconds": 456.9
+  },
+  "STAGE silver": {
+    "recorded_at": "2026-08-15T12:26:11",
+    "seconds": 92.8
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "files_profiled": [
+    "yellow_tripdata_2019-01.parquet",
+    "yellow_tripdata_2019-02.parquet",
+    "yellow_tripdata_2019-03.parquet",
+    "yellow_tripdata_2019-04.parquet",
+    "yellow_tripdata_2019-05.parquet",
+    "yellow_tripdata_2019-06.parquet"
+  ],
+  "total_raw_rows": 44658561,
+  "schema_contract": {
+    "yellow_tripdata_2019-01.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-02.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-03.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-04.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-05.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-06.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    }
+  },
+  "defect_prevalence": {
+    "null_pickup_ts": {
+      "rows": 0,
+      "pct_of_raw": 0.0
+    },
+    "null_dropoff_ts": {
+      "rows": 0,
+      "pct_of_raw": 0.0
+    },
+    "null_pu_location": {
+      "rows": 0,
+      "pct_of_raw": 0.0
+    },
+    "null_do_location": {
+      "rows": 0,
+      "pct_of_raw": 0.0
+    },
+    "null_passenger_count": {
+      "rows": 197782,
+      "pct_of_raw": 0.442876
+    },
+    "null_ratecode": {
+      "rows": 197782,
+      "pct_of_raw": 0.442876
+    },
+    "null_congestion_surcharge": {
+      "rows": 5053997,
+      "pct_of_raw": 11.316972
+    },
+    "pickup_outside_2019h1": {
+      "rows": 925,
+      "pct_of_raw": 0.002071
+    },
+    "dropoff_before_pickup": {
+      "rows": 54,
+      "pct_of_raw": 0.000121
+    },
+    "dropoff_equals_pickup": {
+      "rows": 42070,
+      "pct_of_raw": 0.094204
+    },
+    "duration_over_24h": {
+      "rows": 39,
+      "pct_of_raw": 8.7e-05
+    },
+    "fare_negative": {
+      "rows": 68191,
+      "pct_of_raw": 0.152694
+    },
+    "fare_zero": {
+      "rows": 17298,
+      "pct_of_raw": 0.038734
+    },
+    "fare_over_1000": {
+      "rows": 48,
+      "pct_of_raw": 0.000107
+    },
+    "total_negative": {
+      "rows": 68175,
+      "pct_of_raw": 0.152658
+    },
+    "distance_zero": {
+      "rows": 329087,
+      "pct_of_raw": 0.736896
+    },
+    "distance_negative": {
+      "rows": 0,
+      "pct_of_raw": 0.0
+    },
+    "distance_zero_with_fare": {
+      "rows": 308281,
+      "pct_of_raw": 0.690307
+    },
+    "distance_over_200mi": {
+      "rows": 26,
+      "pct_of_raw": 5.8e-05
+    },
+    "passenger_zero": {
+      "rows": 785404,
+      "pct_of_raw": 1.758686
+    },
+    "passenger_over_6": {
+      "rows": 453,
+      "pct_of_raw": 0.001014
+    },
+    "pu_location_out_of_range": {
+      "rows": 0,
+      "pct_of_raw": 0.0
+    },
+    "do_location_out_of_range": {
+      "rows": 0,
+      "pct_of_raw": 0.0
+    },
+    "ratecode_undocumented": {
+      "rows": 1577,
+      "pct_of_raw": 0.003531
+    },
+    "speed_over_100mph": {
+      "rows": 35473,
+      "pct_of_raw": 0.079432
+    },
+    "payment_type_undocumented": {
+      "rows": 197782,
+      "pct_of_raw": 0.442876
+    }
+  },
+  "value_ranges": {
+    "min_pickup": "2001-01-01 05:32:08",
+    "max_pickup": "2088-01-24 05:55:39",
+    "min_fare": "-450.08",
+    "max_fare": "943274.8",
+    "min_distance": "0.0",
+    "max_distance": "45977.22",
+    "max_passengers": "9.0"
+  },
+  "timings_seconds": {
+    "raw profile scan": 10.2
+  }
+}

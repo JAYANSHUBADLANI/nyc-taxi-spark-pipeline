@@ -1,0 +1,177 @@
+{
+  "spark_version": "3.5.3",
+  "master": "local[8]",
+  "driver_memory": "4g",
+  "read_parallelism": {
+    "source_layout": {
+      "files": 6,
+      "spark_partitions_planned": 9,
+      "partitions_carrying_rows": 6,
+      "max_rows_in_one_partition": 7866620,
+      "min_rows_in_one_partition": 6971560,
+      "aggregation_seconds": 1.37,
+      "stats": {
+        "path": "data/raw/trips",
+        "exists": true,
+        "data_file_count": 6,
+        "partition_directory_count": 1,
+        "total_bytes": 654334455,
+        "total_mb": 624.0,
+        "avg_file_mb": 104.0,
+        "largest_file_mb": 110.64,
+        "smallest_file_mb": 98.14
+      }
+    },
+    "bronze_layout": {
+      "spark_partitions_planned": 9,
+      "partitions_carrying_rows": 9,
+      "max_rows_in_one_partition": 5600000,
+      "min_rows_in_one_partition": 49267,
+      "aggregation_seconds": 1.26,
+      "stats": {
+        "path": "data/bronze/trips",
+        "exists": true,
+        "data_file_count": 35,
+        "partition_directory_count": 1,
+        "total_bytes": 900408570,
+        "total_mb": 858.7,
+        "avg_file_mb": 24.53,
+        "largest_file_mb": 27.62,
+        "smallest_file_mb": 0.94
+      }
+    },
+    "speedup": 1.09
+  },
+  "write_strategy": {
+    "input_rows": 7696617,
+    "repartition_shuffle": {
+      "seconds": 22.69,
+      "spark_ui_metrics": {
+        "stages": 2,
+        "tasks": 14,
+        "shuffle_write_bytes": 465874088,
+        "shuffle_read_bytes": 465874088,
+        "input_bytes": 110520655,
+        "spill_disk_bytes": 0,
+        "executor_run_time_ms": 56789,
+        "shuffle_write_mb": 444.3,
+        "shuffle_read_mb": 444.3,
+        "spill_disk_mb": 0.0
+      },
+      "output": {
+        "path": "data/benchmark/write_repartition",
+        "exists": true,
+        "data_file_count": 6,
+        "partition_directory_count": 1,
+        "total_bytes": 201892950,
+        "total_mb": 192.5,
+        "avg_file_mb": 32.09,
+        "largest_file_mb": 32.13,
+        "smallest_file_mb": 32.07
+      }
+    },
+    "max_records_per_file": {
+      "seconds": 14.76,
+      "spark_ui_metrics": {
+        "stages": 1,
+        "tasks": 8,
+        "shuffle_write_bytes": 0,
+        "shuffle_read_bytes": 0,
+        "input_bytes": 110520655,
+        "spill_disk_bytes": 0,
+        "executor_run_time_ms": 14703,
+        "shuffle_write_mb": 0.0,
+        "shuffle_read_mb": 0.0,
+        "spill_disk_mb": 0.0
+      },
+      "output": {
+        "path": "data/benchmark/write_max_records",
+        "exists": true,
+        "data_file_count": 7,
+        "partition_directory_count": 1,
+        "total_bytes": 153490971,
+        "total_mb": 146.4,
+        "avg_file_mb": 20.91,
+        "largest_file_mb": 24.77,
+        "smallest_file_mb": 0.0
+      }
+    }
+  },
+  "partition_pruning": {
+    "probe_date": "2019-03-13",
+    "partitioned_by_pickup_date": {
+      "rows_returned": 269492,
+      "seconds": 0.14,
+      "input_bytes_read": 34552,
+      "input_mb_read": 0.03,
+      "tasks": 3,
+      "plan_uses_partition_filter": true,
+      "layout": {
+        "path": "data/gold/trips",
+        "exists": true,
+        "data_file_count": 181,
+        "partition_directory_count": 181,
+        "total_bytes": 1370855377,
+        "total_mb": 1307.3,
+        "avg_file_mb": 7.22,
+        "largest_file_mb": 8.53,
+        "smallest_file_mb": 4.63
+      }
+    },
+    "unpartitioned": {
+      "rows_returned": 269492,
+      "seconds": 0.27,
+      "input_bytes_read": 4282543,
+      "input_mb_read": 4.08,
+      "tasks": 18,
+      "plan_uses_partition_filter": false,
+      "layout": {
+        "path": "data/gold/trips_unpartitioned",
+        "exists": true,
+        "data_file_count": 39,
+        "partition_directory_count": 1,
+        "total_bytes": 1572641785,
+        "total_mb": 1499.8,
+        "avg_file_mb": 38.46,
+        "largest_file_mb": 49.33,
+        "smallest_file_mb": 1.71
+      }
+    },
+    "bytes_read_ratio": 123.94
+  },
+  "join_shuffle_cost": {
+    "scope": "single month 2019-03, both strategies measured on the same rows",
+    "broadcast": {
+      "seconds": 1.55,
+      "spark_ui_metrics": {
+        "stages": 3,
+        "tasks": 12,
+        "shuffle_write_bytes": 4146,
+        "shuffle_read_bytes": 4146,
+        "input_bytes": 13839485,
+        "spill_disk_bytes": 0,
+        "executor_run_time_ms": 6159,
+        "shuffle_write_mb": 0.0,
+        "shuffle_read_mb": 0.0,
+        "spill_disk_mb": 0.0
+      }
+    },
+    "sort_merge": {
+      "seconds": 2.65,
+      "spark_ui_metrics": {
+        "stages": 4,
+        "tasks": 18,
+        "shuffle_write_bytes": 7995067,
+        "shuffle_read_bytes": 7995067,
+        "input_bytes": 13839485,
+        "spill_disk_bytes": 0,
+        "executor_run_time_ms": 13148,
+        "shuffle_write_mb": 7.6,
+        "shuffle_read_mb": 7.6,
+        "spill_disk_mb": 0.0
+      }
+    },
+    "shuffle_bytes_avoided": 7990921,
+    "shuffle_mb_avoided": 7.6
+  }
+}

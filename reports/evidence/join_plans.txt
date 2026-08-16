@@ -1,0 +1,141 @@
+Broadcast join, as the pipeline runs it
+=======================================
+The dimension is sent to every executor. The fact table stays where it is and no
+Exchange appears on its side of the join.
+
+== Physical Plan ==
+AdaptiveSparkPlan (9)
++- Project (8)
+   +- BroadcastHashJoin Inner BuildRight (7)
+      :- Filter (2)
+      :  +- Scan parquet  (1)
+      +- BroadcastExchange (6)
+         +- Project (5)
+            +- Filter (4)
+               +- Scan parquet  (3)
+
+
+(1) Scan parquet 
+Output [3]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243]
+Batched: true
+Location: InMemoryFileIndex [file:<PROJECT_ROOT>/data/silver/trips]
+PushedFilters: [IsNotNull(pickup_location_id)]
+ReadSchema: struct<pickup_location_id:int,dropoff_location_id:int,fare_amount:double>
+
+(2) Filter
+Input [3]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243]
+Condition : isnotnull(pickup_location_id#1236)
+
+(3) Scan parquet 
+Output [2]: [location_id#1293, borough#1294]
+Batched: true
+Location: InMemoryFileIndex [file:<PROJECT_ROOT>/data/bronze/zones]
+PushedFilters: [IsNotNull(location_id)]
+ReadSchema: struct<location_id:int,borough:string>
+
+(4) Filter
+Input [2]: [location_id#1293, borough#1294]
+Condition : isnotnull(location_id#1293)
+
+(5) Project
+Output [2]: [location_id#1293 AS pickup_location_id#1314, borough#1294]
+Input [2]: [location_id#1293, borough#1294]
+
+(6) BroadcastExchange
+Input [2]: [pickup_location_id#1314, borough#1294]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=366]
+
+(7) BroadcastHashJoin
+Left keys [1]: [pickup_location_id#1236]
+Right keys [1]: [pickup_location_id#1314]
+Join type: Inner
+Join condition: None
+
+(8) Project
+Output [4]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243, borough#1294]
+Input [5]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243, pickup_location_id#1314, borough#1294]
+
+(9) AdaptiveSparkPlan
+Output [4]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243, borough#1294]
+Arguments: isFinalPlan=false
+
+
+
+
+Sort merge join, with broadcasting disabled
+===========================================
+Both sides are hash partitioned and sorted on the join key. That is a full
+Exchange over every trip row, to meet a 265 row table.
+
+== Physical Plan ==
+AdaptiveSparkPlan (12)
++- Project (11)
+   +- SortMergeJoin Inner (10)
+      :- Sort (4)
+      :  +- Exchange (3)
+      :     +- Filter (2)
+      :        +- Scan parquet  (1)
+      +- Sort (9)
+         +- Exchange (8)
+            +- Project (7)
+               +- Filter (6)
+                  +- Scan parquet  (5)
+
+
+(1) Scan parquet 
+Output [3]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243]
+Batched: true
+Location: InMemoryFileIndex [file:<PROJECT_ROOT>/data/silver/trips]
+PushedFilters: [IsNotNull(pickup_location_id)]
+ReadSchema: struct<pickup_location_id:int,dropoff_location_id:int,fare_amount:double>
+
+(2) Filter
+Input [3]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243]
+Condition : isnotnull(pickup_location_id#1236)
+
+(3) Exchange
+Input [3]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243]
+Arguments: hashpartitioning(pickup_location_id#1236, 64), ENSURE_REQUIREMENTS, [plan_id=396]
+
+(4) Sort
+Input [3]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243]
+Arguments: [pickup_location_id#1236 ASC NULLS FIRST], false, 0
+
+(5) Scan parquet 
+Output [2]: [location_id#1293, borough#1294]
+Batched: true
+Location: InMemoryFileIndex [file:<PROJECT_ROOT>/data/bronze/zones]
+PushedFilters: [IsNotNull(location_id)]
+ReadSchema: struct<location_id:int,borough:string>
+
+(6) Filter
+Input [2]: [location_id#1293, borough#1294]
+Condition : isnotnull(location_id#1293)
+
+(7) Project
+Output [2]: [location_id#1293 AS pickup_location_id#1314, borough#1294]
+Input [2]: [location_id#1293, borough#1294]
+
+(8) Exchange
+Input [2]: [pickup_location_id#1314, borough#1294]
+Arguments: hashpartitioning(pickup_location_id#1314, 64), ENSURE_REQUIREMENTS, [plan_id=397]
+
+(9) Sort
+Input [2]: [pickup_location_id#1314, borough#1294]
+Arguments: [pickup_location_id#1314 ASC NULLS FIRST], false, 0
+
+(10) SortMergeJoin
+Left keys [1]: [pickup_location_id#1236]
+Right keys [1]: [pickup_location_id#1314]
+Join type: Inner
+Join condition: None
+
+(11) Project
+Output [4]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243, borough#1294]
+Input [5]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243, pickup_location_id#1314, borough#1294]
+
+(12) AdaptiveSparkPlan
+Output [4]: [pickup_location_id#1236, dropoff_location_id#1237, fare_amount#1243, borough#1294]
+Arguments: isFinalPlan=false
+
+

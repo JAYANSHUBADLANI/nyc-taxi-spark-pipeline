@@ -1,0 +1,115 @@
+== Physical Plan ==
+AdaptiveSparkPlan (20)
++- Project (19)
+   +- Window (18)
+      +- Project (17)
+         +- Window (16)
+            +- Sort (15)
+               +- Exchange (14)
+                  +- Project (13)
+                     +- BroadcastHashJoin LeftOuter BuildRight (12)
+                        :- Project (7)
+                        :  +- BroadcastHashJoin LeftOuter BuildRight (6)
+                        :     :- Scan parquet  (1)
+                        :     +- BroadcastExchange (5)
+                        :        +- Project (4)
+                        :           +- Filter (3)
+                        :              +- Scan parquet  (2)
+                        +- BroadcastExchange (11)
+                           +- Project (10)
+                              +- Filter (9)
+                                 +- Scan parquet  (8)
+
+
+(1) Scan parquet 
+Output [30]: [vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, pickup_location_id#1236, dropoff_location_id#1237, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262]
+Batched: true
+Location: InMemoryFileIndex [file:<PROJECT_ROOT>/data/silver/trips]
+ReadSchema: struct<vendor_id:bigint,pickup_ts:timestamp,dropoff_ts:timestamp,pickup_location_id:int,dropoff_location_id:int,passenger_count:int,trip_distance_miles:double,ratecode_id:int,payment_type:int,store_and_fwd_flag:string,fare_amount:double,extra:double,mta_tax:double,tip_amount:double,tolls_amount:double,improvement_surcharge:double,congestion_surcharge:double,total_amount:double,trip_duration_minutes:double,implied_speed_mph:double,fare_per_mile:double,pickup_date:date,pickup_hour:int,pickup_day_of_week:int,pickup_month:string,source_month:string,source_file:string,quality_passenger_count_unknown:boolean,quality_ratecode_undocumented:boolean,quality_payment_type_undocumented:boolean>
+
+(2) Scan parquet 
+Output [4]: [location_id#1293, borough#1294, zone_name#1295, service_zone#1296]
+Batched: true
+Location: InMemoryFileIndex [file:<PROJECT_ROOT>/data/bronze/zones]
+PushedFilters: [IsNotNull(location_id)]
+ReadSchema: struct<location_id:int,borough:string,zone_name:string,service_zone:string>
+
+(3) Filter
+Input [4]: [location_id#1293, borough#1294, zone_name#1295, service_zone#1296]
+Condition : isnotnull(location_id#1293)
+
+(4) Project
+Output [4]: [location_id#1293 AS pickup_location_id#1326, borough#1294 AS pickup_borough#1327, zone_name#1295 AS pickup_zone#1328, service_zone#1296 AS pickup_service_zone#1329]
+Input [4]: [location_id#1293, borough#1294, zone_name#1295, service_zone#1296]
+
+(5) BroadcastExchange
+Input [4]: [pickup_location_id#1326, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=458]
+
+(6) BroadcastHashJoin
+Left keys [1]: [pickup_location_id#1236]
+Right keys [1]: [pickup_location_id#1326]
+Join type: LeftOuter
+Join condition: None
+
+(7) Project
+Output [33]: [pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, dropoff_location_id#1237, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329]
+Input [34]: [vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, pickup_location_id#1236, dropoff_location_id#1237, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_location_id#1326, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329]
+
+(8) Scan parquet 
+Output [4]: [location_id#1375, borough#1376, zone_name#1377, service_zone#1378]
+Batched: true
+Location: InMemoryFileIndex [file:<PROJECT_ROOT>/data/bronze/zones]
+PushedFilters: [IsNotNull(location_id)]
+ReadSchema: struct<location_id:int,borough:string,zone_name:string,service_zone:string>
+
+(9) Filter
+Input [4]: [location_id#1375, borough#1376, zone_name#1377, service_zone#1378]
+Condition : isnotnull(location_id#1375)
+
+(10) Project
+Output [4]: [location_id#1375 AS dropoff_location_id#1334, borough#1376 AS dropoff_borough#1335, zone_name#1377 AS dropoff_zone#1336, service_zone#1378 AS dropoff_service_zone#1337]
+Input [4]: [location_id#1375, borough#1376, zone_name#1377, service_zone#1378]
+
+(11) BroadcastExchange
+Input [4]: [dropoff_location_id#1334, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=462]
+
+(12) BroadcastHashJoin
+Left keys [1]: [dropoff_location_id#1237]
+Right keys [1]: [dropoff_location_id#1334]
+Join type: LeftOuter
+Join condition: None
+
+(13) Project
+Output [36]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337]
+Input [37]: [pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, dropoff_location_id#1237, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_location_id#1334, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337]
+
+(14) Exchange
+Input [36]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337]
+Arguments: rangepartitioning(pickup_date#1254 ASC NULLS FIRST, 192), REPARTITION_BY_NUM, [plan_id=465]
+
+(15) Sort
+Input [36]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337]
+Arguments: [pickup_location_id#1236 ASC NULLS FIRST, pickup_date#1254 ASC NULLS FIRST, pickup_ts#1234 ASC NULLS FIRST], false, 0
+
+(16) Window
+Input [36]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337]
+Arguments: [row_number() windowspecdefinition(pickup_location_id#1236, pickup_date#1254, pickup_ts#1234 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS trip_seq_in_zone_day#1417], [pickup_location_id#1236, pickup_date#1254], [pickup_ts#1234 ASC NULLS FIRST]
+
+(17) Project
+Output [38]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337, trip_seq_in_zone_day#1417, cast(pickup_ts#1234 as bigint) AS _w0#1456L]
+Input [37]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337, trip_seq_in_zone_day#1417]
+
+(18) Window
+Input [38]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337, trip_seq_in_zone_day#1417, _w0#1456L]
+Arguments: [lag(_w0#1456L, -1, null) windowspecdefinition(pickup_location_id#1236, pickup_date#1254, pickup_ts#1234 ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS _we0#1457L, lag(fare_amount#1243, -1, null) windowspecdefinition(pickup_location_id#1236, pickup_date#1254, pickup_ts#1234 ASC NULLS FIRST, specifiedwindowframe(RowFrame, -1, -1)) AS prev_trip_fare_in_zone#1496], [pickup_location_id#1236, pickup_date#1254], [pickup_ts#1234 ASC NULLS FIRST]
+
+(19) Project
+Output [39]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337, trip_seq_in_zone_day#1417, (cast(pickup_ts#1234 as bigint) - _we0#1457L) AS seconds_since_prev_pickup_in_zone#1455L, prev_trip_fare_in_zone#1496]
+Input [40]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337, trip_seq_in_zone_day#1417, _w0#1456L, _we0#1457L, prev_trip_fare_in_zone#1496]
+
+(20) AdaptiveSparkPlan
+Output [39]: [dropoff_location_id#1237, pickup_location_id#1236, vendor_id#1233L, pickup_ts#1234, dropoff_ts#1235, passenger_count#1238, trip_distance_miles#1239, ratecode_id#1240, payment_type#1241, store_and_fwd_flag#1242, fare_amount#1243, extra#1244, mta_tax#1245, tip_amount#1246, tolls_amount#1247, improvement_surcharge#1248, congestion_surcharge#1249, total_amount#1250, trip_duration_minutes#1251, implied_speed_mph#1252, fare_per_mile#1253, pickup_date#1254, pickup_hour#1255, pickup_day_of_week#1256, pickup_month#1257, source_month#1258, source_file#1259, quality_passenger_count_unknown#1260, quality_ratecode_undocumented#1261, quality_payment_type_undocumented#1262, pickup_borough#1327, pickup_zone#1328, pickup_service_zone#1329, dropoff_borough#1335, dropoff_zone#1336, dropoff_service_zone#1337, trip_seq_in_zone_day#1417, seconds_since_prev_pickup_in_zone#1455L, prev_trip_fare_in_zone#1496]
+Arguments: isFinalPlan=false
+

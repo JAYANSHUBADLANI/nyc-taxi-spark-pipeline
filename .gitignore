@@ -1,0 +1,39 @@
+# Raw and derived data. The six source Parquet files are 673 MB on their own and every
+# layer below them is regenerable with `make download && make pipeline`, so none of it
+# belongs in version control.
+data/
+
+# Spark's own working files.
+spark-warehouse/
+metastore_db/
+derby.log
+checkpoint/
+*.crc
+_SUCCESS
+
+# Local JDK unpacked for PySpark.
+.jdks/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Environment and editor
+.env
+.env.*
+.DS_Store
+.idea/
+.vscode/
+
+# Report outputs are committed on purpose, they are the evidence behind the README figures.
+# The Spark CSV writer's staging directories are not, though the analytics stage cleans
+# those up itself.
+reports/tables/_*/

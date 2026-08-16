@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nyc-taxi-spark-pipeline"
+version = "1.0.0"
+description = "Layered PySpark pipeline over NYC TLC yellow taxi trip records"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "pyspark==3.5.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pyarrow>=14.0",
+]
+
+[project.scripts]
+nyc-taxi-pipeline = "nyc_taxi.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Quiet the JVM chatter that Spark writes to stderr during local test sessions.
+filterwarnings = ["ignore::DeprecationWarning"]

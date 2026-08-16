@@ -1,0 +1,391 @@
+{
+  "stage": "silver",
+  "ledger": {
+    "input_rows": 44657636,
+    "kept_rows": 44227382,
+    "excluded_rows": 430254,
+    "excluded_pct": 0.9635,
+    "sum_of_rows_first_excluded": 430254,
+    "reconciles": true,
+    "reconciliation_difference": 0,
+    "lines": [
+      {
+        "rule_id": "R01",
+        "rule_name": "fare_not_positive",
+        "severity": "REJECT",
+        "description": "fare_amount is null, zero or negative",
+        "rows_flagged": 85480,
+        "pct_of_input_flagged": 0.191412,
+        "rows_first_excluded": 85480,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R02",
+        "rule_name": "fare_implausibly_high",
+        "severity": "REJECT",
+        "description": "fare_amount above the plausible ceiling",
+        "rows_flagged": 48,
+        "pct_of_input_flagged": 0.000107,
+        "rows_first_excluded": 48,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R03",
+        "rule_name": "total_amount_negative",
+        "severity": "REJECT",
+        "description": "total_amount is negative",
+        "rows_flagged": 68173,
+        "pct_of_input_flagged": 0.152657,
+        "rows_first_excluded": 0,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R04",
+        "rule_name": "distance_not_positive",
+        "severity": "REJECT",
+        "description": "trip_distance is null, zero or negative",
+        "rows_flagged": 329046,
+        "pct_of_input_flagged": 0.736819,
+        "rows_first_excluded": 308211,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R05",
+        "rule_name": "distance_implausibly_long",
+        "severity": "REJECT",
+        "description": "trip_distance above the plausible ceiling",
+        "rows_flagged": 26,
+        "pct_of_input_flagged": 5.8e-05,
+        "rows_first_excluded": 23,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R06",
+        "rule_name": "dropoff_not_after_pickup",
+        "severity": "REJECT",
+        "description": "dropoff timestamp is not strictly after the pickup timestamp",
+        "rows_flagged": 42119,
+        "pct_of_input_flagged": 0.094315,
+        "rows_first_excluded": 2169,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R07",
+        "rule_name": "duration_implausibly_long",
+        "severity": "REJECT",
+        "description": "metered duration longer than 24 hours",
+        "rows_flagged": 39,
+        "pct_of_input_flagged": 8.7e-05,
+        "rows_first_excluded": 16,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R08",
+        "rule_name": "implied_speed_implausible",
+        "severity": "REJECT",
+        "description": "implied average speed above the plausible ceiling",
+        "rows_flagged": 35471,
+        "pct_of_input_flagged": 0.079429,
+        "rows_first_excluded": 34152,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R09",
+        "rule_name": "passenger_count_above_licensed_max",
+        "severity": "REJECT",
+        "description": "passenger_count above the licensed vehicle maximum",
+        "rows_flagged": 453,
+        "pct_of_input_flagged": 0.001014,
+        "rows_first_excluded": 155,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "R10",
+        "rule_name": "location_id_out_of_range",
+        "severity": "REJECT",
+        "description": "pickup or dropoff LocationID outside the published TLC zone range",
+        "rows_flagged": 0,
+        "pct_of_input_flagged": 0.0,
+        "rows_first_excluded": 0,
+        "rows_flagged_within_kept": 0
+      },
+      {
+        "rule_id": "W01",
+        "rule_name": "passenger_count_unknown",
+        "severity": "WARN",
+        "description": "passenger_count is null or zero",
+        "rows_flagged": 983186,
+        "pct_of_input_flagged": 2.201608,
+        "rows_first_excluded": 0,
+        "rows_flagged_within_kept": 965721
+      },
+      {
+        "rule_id": "W02",
+        "rule_name": "ratecode_undocumented",
+        "severity": "WARN",
+        "description": "RatecodeID is null or not in the published code list",
+        "rows_flagged": 199359,
+        "pct_of_input_flagged": 0.446416,
+        "rows_first_excluded": 0,
+        "rows_flagged_within_kept": 195704
+      },
+      {
+        "rule_id": "W03",
+        "rule_name": "payment_type_undocumented",
+        "severity": "WARN",
+        "description": "payment_type is null or not in the published code list",
+        "rows_flagged": 197782,
+        "pct_of_input_flagged": 0.442885,
+        "rows_first_excluded": 0,
+        "rows_flagged_within_kept": 194973
+      }
+    ],
+    "per_source_month": {
+      "2019-01": {
+        "input_rows": 7696166,
+        "kept_rows": 7628383,
+        "excluded_rows": 67783,
+        "flagged": {
+          "R01": 9766,
+          "R02": 22,
+          "R03": 7127,
+          "R04": 55062,
+          "R05": 5,
+          "R06": 6554,
+          "R07": 5,
+          "R08": 5723,
+          "R09": 57,
+          "R10": 0,
+          "W01": 146053,
+          "W02": 28924,
+          "W03": 28672
+        },
+        "excluded_pct": 0.8807,
+        "flagged_pct": {
+          "R01": 0.126894,
+          "R02": 0.000286,
+          "R03": 0.092605,
+          "R04": 0.715447,
+          "R05": 6.5e-05,
+          "R06": 0.085159,
+          "R07": 6.5e-05,
+          "R08": 0.074362,
+          "R09": 0.000741,
+          "R10": 0.0,
+          "W01": 1.897737,
+          "W02": 0.375823,
+          "W03": 0.372549
+        }
+      },
+      "2019-02": {
+        "input_rows": 7049267,
+        "kept_rows": 6985071,
+        "excluded_rows": 64196,
+        "flagged": {
+          "R01": 12344,
+          "R02": 5,
+          "R03": 9475,
+          "R04": 49782,
+          "R05": 3,
+          "R06": 6395,
+          "R07": 3,
+          "R08": 5191,
+          "R09": 72,
+          "R10": 0,
+          "W01": 148813,
+          "W02": 29847,
+          "W03": 29663
+        },
+        "excluded_pct": 0.9107,
+        "flagged_pct": {
+          "R01": 0.17511,
+          "R02": 7.1e-05,
+          "R03": 0.134411,
+          "R04": 0.706201,
+          "R05": 4.3e-05,
+          "R06": 0.090719,
+          "R07": 4.3e-05,
+          "R08": 0.073639,
+          "R09": 0.001021,
+          "R10": 0.0,
+          "W01": 2.111042,
+          "W02": 0.423406,
+          "W03": 0.420796
+        }
+      },
+      "2019-03": {
+        "input_rows": 7866565,
+        "kept_rows": 7795075,
+        "excluded_rows": 71490,
+        "flagged": {
+          "R01": 14791,
+          "R02": 5,
+          "R03": 11820,
+          "R04": 53818,
+          "R05": 3,
+          "R06": 6242,
+          "R07": 12,
+          "R08": 6130,
+          "R09": 82,
+          "R10": 0,
+          "W01": 173605,
+          "W02": 33737,
+          "W03": 33474
+        },
+        "excluded_pct": 0.9088,
+        "flagged_pct": {
+          "R01": 0.188024,
+          "R02": 6.4e-05,
+          "R03": 0.150256,
+          "R04": 0.684136,
+          "R05": 3.8e-05,
+          "R06": 0.079348,
+          "R07": 0.000153,
+          "R08": 0.077925,
+          "R09": 0.001042,
+          "R10": 0.0,
+          "W01": 2.206872,
+          "W02": 0.428866,
+          "W03": 0.425522
+        }
+      },
+      "2019-04": {
+        "input_rows": 7475877,
+        "kept_rows": 7407479,
+        "excluded_rows": 68398,
+        "flagged": {
+          "R01": 14846,
+          "R02": 5,
+          "R03": 11986,
+          "R04": 50961,
+          "R05": 7,
+          "R06": 6253,
+          "R07": 3,
+          "R08": 5834,
+          "R09": 72,
+          "R10": 0,
+          "W01": 179263,
+          "W02": 42745,
+          "W03": 42456
+        },
+        "excluded_pct": 0.9149,
+        "flagged_pct": {
+          "R01": 0.198585,
+          "R02": 6.7e-05,
+          "R03": 0.160329,
+          "R04": 0.681673,
+          "R05": 9.4e-05,
+          "R06": 0.083642,
+          "R07": 4e-05,
+          "R08": 0.078038,
+          "R09": 0.000963,
+          "R10": 0.0,
+          "W01": 2.397886,
+          "W02": 0.571772,
+          "W03": 0.567907
+        }
+      },
+      "2019-05": {
+        "input_rows": 7598380,
+        "kept_rows": 7522573,
+        "excluded_rows": 75807,
+        "flagged": {
+          "R01": 16584,
+          "R02": 6,
+          "R03": 13715,
+          "R04": 56351,
+          "R05": 4,
+          "R06": 7681,
+          "R07": 13,
+          "R08": 6436,
+          "R09": 79,
+          "R10": 0,
+          "W01": 176575,
+          "W02": 33053,
+          "W03": 32770
+        },
+        "excluded_pct": 0.9977,
+        "flagged_pct": {
+          "R01": 0.218257,
+          "R02": 7.9e-05,
+          "R03": 0.180499,
+          "R04": 0.741619,
+          "R05": 5.3e-05,
+          "R06": 0.101087,
+          "R07": 0.000171,
+          "R08": 0.084702,
+          "R09": 0.00104,
+          "R10": 0.0,
+          "W01": 2.323851,
+          "W02": 0.435001,
+          "W03": 0.431276
+        }
+      },
+      "2019-06": {
+        "input_rows": 6971381,
+        "kept_rows": 6888801,
+        "excluded_rows": 82580,
+        "flagged": {
+          "R01": 17149,
+          "R02": 5,
+          "R03": 14050,
+          "R04": 63072,
+          "R05": 4,
+          "R06": 8994,
+          "R07": 3,
+          "R08": 6157,
+          "R09": 91,
+          "R10": 0,
+          "W01": 158877,
+          "W02": 31053,
+          "W03": 30747
+        },
+        "excluded_pct": 1.1846,
+        "flagged_pct": {
+          "R01": 0.245991,
+          "R02": 7.2e-05,
+          "R03": 0.201538,
+          "R04": 0.904727,
+          "R05": 5.7e-05,
+          "R06": 0.129013,
+          "R07": 4.3e-05,
+          "R08": 0.088318,
+          "R09": 0.001305,
+          "R10": 0.0,
+          "W01": 2.278989,
+          "W02": 0.445435,
+          "W03": 0.441046
+        }
+      }
+    }
+  },
+  "timings_seconds": {
+    "silver: build exclusion ledger": 9.8,
+    "silver: write kept trips": 76.4,
+    "silver: write excluded trips": 6.1
+  },
+  "output": {
+    "kept": {
+      "path": "data/silver/trips",
+      "exists": true,
+      "data_file_count": 9,
+      "partition_directory_count": 1,
+      "total_bytes": 1275709460,
+      "total_mb": 1216.6,
+      "avg_file_mb": 135.18,
+      "largest_file_mb": 153.47,
+      "smallest_file_mb": 1.49
+    },
+    "excluded": {
+      "path": "data/silver/excluded",
+      "exists": true,
+      "data_file_count": 67,
+      "partition_directory_count": 8,
+      "total_bytes": 10479374,
+      "total_mb": 10.0,
+      "avg_file_mb": 0.15,
+      "largest_file_mb": 0.91,
+      "smallest_file_mb": 0.0
+    }
+  }
+}

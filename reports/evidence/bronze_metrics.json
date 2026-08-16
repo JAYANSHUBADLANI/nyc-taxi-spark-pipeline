@@ -1,0 +1,168 @@
+{
+  "stage": "bronze",
+  "schema_contract": {
+    "yellow_tripdata_2019-01.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-02.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-03.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-04.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-05.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    },
+    "yellow_tripdata_2019-06.parquet": {
+      "missing_columns": [],
+      "unexpected_columns": [],
+      "type_mismatches": {
+        "tpep_pickup_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        },
+        "tpep_dropoff_datetime": {
+          "expected": "timestamp",
+          "actual": "timestamp_ntz"
+        }
+      },
+      "conforms": false
+    }
+  },
+  "raw_rows": 44658561,
+  "accepted_rows": 44657636,
+  "rejected_rows": 925,
+  "rejected_pct": 0.002071,
+  "reject_reasons": {
+    "pickup_outside_load_window": 925
+  },
+  "per_source_month": {
+    "2019-01": {
+      "raw_rows": 7696617,
+      "accepted_rows": 7696166,
+      "rejected_rows": 451
+    },
+    "2019-02": {
+      "raw_rows": 7049370,
+      "accepted_rows": 7049267,
+      "rejected_rows": 103
+    },
+    "2019-03": {
+      "raw_rows": 7866620,
+      "accepted_rows": 7866565,
+      "rejected_rows": 55
+    },
+    "2019-04": {
+      "raw_rows": 7475949,
+      "accepted_rows": 7475877,
+      "rejected_rows": 72
+    },
+    "2019-05": {
+      "raw_rows": 7598445,
+      "accepted_rows": 7598380,
+      "rejected_rows": 65
+    },
+    "2019-06": {
+      "raw_rows": 6971560,
+      "accepted_rows": 6971381,
+      "rejected_rows": 179
+    }
+  },
+  "cross_month_file_drift_rows": 1972,
+  "partitions_on_read": 9,
+  "max_rows_per_output_file": 1400000,
+  "timings_seconds": {
+    "bronze: schema contract check": 3.1,
+    "bronze: classify and count": 34.0,
+    "bronze: write accepted": 88.6,
+    "bronze: write rejected": 37.6,
+    "bronze: write zone reference": 0.3
+  },
+  "output": {
+    "accepted": {
+      "path": "data/bronze/trips",
+      "exists": true,
+      "data_file_count": 35,
+      "partition_directory_count": 1,
+      "total_bytes": 900408570,
+      "total_mb": 858.7,
+      "avg_file_mb": 24.53,
+      "largest_file_mb": 27.62,
+      "smallest_file_mb": 0.94
+    },
+    "rejected": {
+      "path": "data/bronze/rejected",
+      "exists": true,
+      "data_file_count": 1,
+      "partition_directory_count": 1,
+      "total_bytes": 36831,
+      "total_mb": 0.0,
+      "avg_file_mb": 0.04,
+      "largest_file_mb": 0.04,
+      "smallest_file_mb": 0.04
+    }
+  }
+}

@@ -1,0 +1,20 @@
+== Physical Plan ==
+* Filter (3)
++- * ColumnarToRow (2)
+   +- Scan parquet  (1)
+
+
+(1) Scan parquet 
+Output [39]: [dropoff_location_id#396, pickup_location_id#397, vendor_id#398L, pickup_ts#399, dropoff_ts#400, passenger_count#401, trip_distance_miles#402, ratecode_id#403, payment_type#404, store_and_fwd_flag#405, fare_amount#406, extra#407, mta_tax#408, tip_amount#409, tolls_amount#410, improvement_surcharge#411, congestion_surcharge#412, total_amount#413, trip_duration_minutes#414, implied_speed_mph#415, fare_per_mile#416, pickup_hour#417, pickup_day_of_week#418, pickup_month#419, source_month#420, source_file#421, quality_passenger_count_unknown#422, quality_ratecode_undocumented#423, quality_payment_type_undocumented#424, pickup_borough#425, pickup_zone#426, pickup_service_zone#427, dropoff_borough#428, dropoff_zone#429, dropoff_service_zone#430, trip_seq_in_zone_day#431, seconds_since_prev_pickup_in_zone#432L, prev_trip_fare_in_zone#433, pickup_date#434]
+Batched: true
+Location: InMemoryFileIndex [file:<PROJECT_ROOT>/data/gold/trips_unpartitioned]
+PushedFilters: [IsNotNull(pickup_date), EqualTo(pickup_date,2019-03-13)]
+ReadSchema: struct<dropoff_location_id:int,pickup_location_id:int,vendor_id:bigint,pickup_ts:timestamp,dropoff_ts:timestamp,passenger_count:int,trip_distance_miles:double,ratecode_id:int,payment_type:int,store_and_fwd_flag:string,fare_amount:double,extra:double,mta_tax:double,tip_amount:double,tolls_amount:double,improvement_surcharge:double,congestion_surcharge:double,total_amount:double,trip_duration_minutes:double,implied_speed_mph:double,fare_per_mile:double,pickup_hour:int,pickup_day_of_week:int,pickup_month:string,source_month:string,source_file:string,quality_passenger_count_unknown:boolean,quality_ratecode_undocumented:boolean,quality_payment_type_undocumented:boolean,pickup_borough:string,pickup_zone:string,pickup_service_zone:string,dropoff_borough:string,dropoff_zone:string,dropoff_service_zone:string,trip_seq_in_zone_day:int,seconds_since_prev_pickup_in_zone:bigint,prev_trip_fare_in_zone:double,pickup_date:date>
+
+(2) ColumnarToRow [codegen id : 1]
+Input [39]: [dropoff_location_id#396, pickup_location_id#397, vendor_id#398L, pickup_ts#399, dropoff_ts#400, passenger_count#401, trip_distance_miles#402, ratecode_id#403, payment_type#404, store_and_fwd_flag#405, fare_amount#406, extra#407, mta_tax#408, tip_amount#409, tolls_amount#410, improvement_surcharge#411, congestion_surcharge#412, total_amount#413, trip_duration_minutes#414, implied_speed_mph#415, fare_per_mile#416, pickup_hour#417, pickup_day_of_week#418, pickup_month#419, source_month#420, source_file#421, quality_passenger_count_unknown#422, quality_ratecode_undocumented#423, quality_payment_type_undocumented#424, pickup_borough#425, pickup_zone#426, pickup_service_zone#427, dropoff_borough#428, dropoff_zone#429, dropoff_service_zone#430, trip_seq_in_zone_day#431, seconds_since_prev_pickup_in_zone#432L, prev_trip_fare_in_zone#433, pickup_date#434]
+
+(3) Filter [codegen id : 1]
+Input [39]: [dropoff_location_id#396, pickup_location_id#397, vendor_id#398L, pickup_ts#399, dropoff_ts#400, passenger_count#401, trip_distance_miles#402, ratecode_id#403, payment_type#404, store_and_fwd_flag#405, fare_amount#406, extra#407, mta_tax#408, tip_amount#409, tolls_amount#410, improvement_surcharge#411, congestion_surcharge#412, total_amount#413, trip_duration_minutes#414, implied_speed_mph#415, fare_per_mile#416, pickup_hour#417, pickup_day_of_week#418, pickup_month#419, source_month#420, source_file#421, quality_passenger_count_unknown#422, quality_ratecode_undocumented#423, quality_payment_type_undocumented#424, pickup_borough#425, pickup_zone#426, pickup_service_zone#427, dropoff_borough#428, dropoff_zone#429, dropoff_service_zone#430, trip_seq_in_zone_day#431, seconds_since_prev_pickup_in_zone#432L, prev_trip_fare_in_zone#433, pickup_date#434]
+Condition : (isnotnull(pickup_date#434) AND (pickup_date#434 = 2019-03-13))
+
