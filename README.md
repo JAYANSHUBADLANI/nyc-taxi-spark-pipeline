@@ -1,5 +1,7 @@
 # NYC Taxi Trip Pipeline (PySpark)
 
+[![tests](https://github.com/JAYANSHUBADLANI/nyc-taxi-spark-pipeline/actions/workflows/tests.yml/badge.svg)](https://github.com/JAYANSHUBADLANI/nyc-taxi-spark-pipeline/actions/workflows/tests.yml)
+
 A layered bronze, silver and gold data pipeline over six months of real New York City yellow
 taxi trip records: 44,658,561 rows of published TLC data, ingested under an enforced schema
 contract, cleaned against documented rules that account for every row they remove, and
