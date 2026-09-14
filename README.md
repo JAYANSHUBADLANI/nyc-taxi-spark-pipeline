@@ -17,7 +17,7 @@ evidence each figure came from is in `reports/evidence/`.
 ## Why Spark, honestly
 
 The row count answers this on its own. 44.7 million trips arrive as 673 MB of Parquet and
-reach 1.27 GB by the silver layer, on a machine with 8 GB of RAM. Nothing here fits in
+reach 1.27 GB by the silver layer, against a 4 GB Spark driver. Nothing here fits in
 memory at once, so every stage has to be designed around how the data is split rather than
 around what fits in a dataframe.
 
@@ -426,8 +426,9 @@ run summary reads the values back from the live session rather than from config.
 
 ## Runtime
 
-Measured end to end on 8 cores and 8 GB of RAM. Stage timings come from
-`reports/evidence/run_timings.json` and `reports/evidence/raw_profile.json`.
+Measured end to end on an Apple M5 with 10 cores and 16 GB of RAM, with Spark at `local[8]`
+and a 4 GB driver. Stage timings come from `reports/evidence/run_timings.json` and
+`reports/evidence/raw_profile.json`.
 
 | Stage | Time | What dominates it |
 | --- | ---: | --- |
